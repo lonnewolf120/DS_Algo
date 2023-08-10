@@ -1,0 +1,1 @@
+{"name":"Local: e2","url":"c:\\D Drive\\Projects\\Tutorials\\Graph Theory\\MCC\\1\\e2.cpp","tests":[{"id":1689052009034,"input":"5\nababa\ncodedoca\nabcda\nzxzytyz\nabcdefghijklmnopqrstuvwxyza\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\D Drive\\Projects\\Tutorials\\Graph Theory\\MCC\\1\\e2.cpp","group":"local","local":true}
