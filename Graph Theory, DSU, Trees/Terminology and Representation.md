@@ -13,12 +13,12 @@ int g[N][N];
 
 int main()
 {
-	int v1,v2,wt;
-	forn(i,m)
-	{
-		cin >> v1 >> v2 >> wt;
-		g[v1][v2] = wt;
-		g[v2][v1] = wt;
+    int v1,v2,wt;
+    forn(i,m)
+    {
+        cin >> v1 >> v2 >> wt;
+        g[v1][v2] = wt;
+        g[v2][v1] = wt;
 }
 
 //Takes less time, more space
@@ -33,13 +33,13 @@ vector<int> g[N];
 vector<pair<int,int>> g1[N];
 int main()
 {
-	int v1,v2,wt;
-	forn(i,m)
-	{
-		cin >> v1 >> v2 >> wt;
-		g[v1].pb({v2,wt}); //v1 connected with v2 with path weight wt
-		g[v2].pb({v1,wt});
-	} 
+    int v1,v2,wt;
+    forn(i,m)
+    {
+        cin >> v1 >> v2 >> wt;
+        g[v1].pb({v2,wt}); //v1 connected with v2 with path weight wt
+        g[v2].pb({v1,wt});
+    } 
 }
 ///More Time, less space
 ```
