@@ -2,7 +2,7 @@
 
 ### Graph Theoy terminology and representation of graphs
 
-[Terminology and Representation](Terminology and Representation.md)
+[Terminology and Representation](Terminology_and_Representation.md)
 
 ### Graph Theory Visualization:
 
@@ -14,7 +14,7 @@
 
 [Breadth-First Search (BFS)](BFS.md)
 
-[Special Traversals/Techniques](Special Traversals Techniques.md)
+[Special Traversals/Techniques](SpecialTraversalsTechniques.md)
 
 [Minimum Spanning Tree](MST.md)
 
