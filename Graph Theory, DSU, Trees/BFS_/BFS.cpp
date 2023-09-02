@@ -71,7 +71,6 @@ void bfs1(int src)
 }
 */
 
-
 void bfs(int source)
 {
 	queue<int> q;

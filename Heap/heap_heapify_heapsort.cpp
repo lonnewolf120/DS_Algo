@@ -1,26 +1,57 @@
 
 #include <bits/stdc++.h>
-#include <C:\D Drive\Projects\debug2.h>
 using namespace std;
-   
-typedef long long ll;
-typedef long double ld;
-#define forn(i,e) for(ll i = 0; i < e; i++)
-#define forsn(i,s,e) for(ll i = s; i <= e; i++)
-#define rforn(i,s) for(ll i = s; i >= 0; i--)
-#define rforsn(i,s,e) for(ll i = s; i >= e; i--)
-#define ln "\n"
-#define pb push_back
-#define fi first
-#define se second
-#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-#define all(x) (x).begin(), (x).end()
-#define sz(x) ((ll)(x).size())
-
-void solve()
+class Heap
 {
+    public:
+    int *arr;
+    int size;
 
-}
+    Heap(int n)
+    {
+        size=0;
+        arr = new int[n];
+    }
+    int parent(int i) {
+        return i/2; //1-based
+    }
+    int left(int i) {
+        return 2*i; //1-based
+    }
+    int right(int i) {
+        return 2*i+1; //1-based
+    }
+    void heapify(int i)
+    {
+        int l = left(i), r = right(i), largest;
+        if(l<=size && arr[l]>arr[i])
+        {
+            largest = l;
+        }
+        else
+        {
+            largest = i;
+        }
+        if(r<=size && arr[r]>arr[largest])
+        {
+            largest = r;
+        }
+        if(largest!=i)
+        {
+            swap(arr[i], arr[largest]);
+            heapify(largest);
+        }
+    }
+
+    void build_max_heap()
+    {
+        for(int i=size/2; i>=0; --i)
+            heapify(i);
+    }
+
+    
+};
+
 int main()
 {
     fastio
