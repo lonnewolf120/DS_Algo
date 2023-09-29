@@ -1,0 +1,1 @@
+{"name":"Local: abc042_b","url":"c:\\D Drive\\Projects\\_DSA\\Practice\\Atcoder\\ABC\\abc042_b.cpp","tests":[{"id":1694569972775,"input":"3 3\ndxx\naxx\ncxx","output":"axxcxxdxx"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\D Drive\\Projects\\_DSA\\Practice\\Atcoder\\ABC\\abc042_b.cpp","group":"local","local":true}

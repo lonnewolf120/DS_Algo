@@ -30,7 +30,10 @@
         "xhash": "cpp",
         "xiosbase": "cpp",
         "xstring": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp",
+        "format": "cpp"
     },
     "cph.general.onceMaintainerMessage": false,
     "C_Cpp.errorSquiggles": "disabled"
