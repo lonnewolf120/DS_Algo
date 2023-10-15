@@ -65,7 +65,8 @@ int main()
     dist.clear();
     for(int it=1;it<=e;it++) {
 	     int u,v,w; cin>>u>>v>>w;
-	     graph.push_back(make_tuple(u,v,w));
+         graph.push_back(make_tuple(u,v,w));
+         // graph.push_back(make_tuple(v,u,w));
     }
     bool b = bellman(v,1);
     cout<< "Negative Edge Cycle: " << (b?"YES\n":"NO\n");
