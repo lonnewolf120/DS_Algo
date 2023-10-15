@@ -58,11 +58,25 @@ bool bellman(int vsize, int source) {
 int main()
 {
     fastio
-    ll t;
-    cin >> t;
-    for(int it=1;it<=t;it++) {
-     //cout << "Case " << it << ": ";
-        // solve();
+    ll v,e;
+    cin >> v >> e;
+    graph.clear();
+    parent.clear();
+    dist.clear();
+    for(int it=1;it<=e;it++) {
+	     int u,v,w; cin>>u>>v>>w;
+	     graph.push_back(make_tuple(u,v,w));
+    }
+    bool b = bellman(v,1);
+    cout<< "Negative Edge Cycle: " << (b?"YES\n":"NO\n");
+    if(b)
+    {
+        cout<<"U\t"<<"V\t"<<"DIST\n";
+    	for(auto t:graph)
+    	{
+        int u = get<0>(t), v = get<1>(t), wt = get<2>(t);
+        cout<<u<<"\t"<<v<<"\t"<<dist[v]<<ln;
+    	}
     }
     return 0;
 }
