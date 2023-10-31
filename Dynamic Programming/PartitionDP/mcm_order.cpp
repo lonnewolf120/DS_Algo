@@ -1,13 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N = 5; // Number of matrices
+const int N = 1000; // Number of matrices
 int dp[N][N];
-vector<int> dimensions = {10, 20, 30, 40, 50}; // Matrix dimensions
+vector<int> a = {40, 20, 30, 10, 30}; // Matrix a
 
 void printMCMOrder(int i, int j, vector<vector<int>>& bracket) {
     if (i == j) {
-        cout << "A" << i + 1;
+        cout << (char)(65+i-1);
         return;
     }
     cout << "(";
@@ -18,8 +18,7 @@ void printMCMOrder(int i, int j, vector<vector<int>>& bracket) {
 }
 
 int mcm() {
-    int n = dimensions.size();
-
+    int n = a.size();
     // Initialize the DP table
     for (int i = 0; i < n; ++i) {
         dp[i][i] = 0;
@@ -33,7 +32,7 @@ int mcm() {
             dp[i][j] = INT_MAX;
 
             for (int k = i; k < j; ++k) {
-                int cost = dp[i][k] + dp[k + 1][j] + dimensions[i - 1] * dimensions[k] * dimensions[j];
+                int cost = dp[i][k] + dp[k + 1][j] + a[i - 1] * a[k] * a[j];
                 if (cost < dp[i][j]) {
                     dp[i][j] = cost;
                     bracket[i][j] = k;

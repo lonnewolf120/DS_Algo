@@ -27,6 +27,7 @@ int mcm_tabular(int n)
 {
 	for (int i = 0; i < n; ++i)
 		dp[i][i]=0;
+	// vector<vector<ll>> bracket(n,vector<ll>(n));
 	for(int i=n-1; i>=1; --i)
 	{
 		for(int j=i+1;j<=n-1;++j) //always the left partition of i
@@ -36,14 +37,17 @@ int mcm_tabular(int n)
 			{
 				int steps = a[i-1]*a[k]*a[j]+dp[i][k]+dp[k+1][j];
 				dp[i][j]=min(dp[i][j],steps);
+				// bracket[i][j]=k;
+				// cout<< k <<" ";
 			}
+			// cout<<ln;
 		}
 	}
 	return dp[1][n-1];
 }
 int main()
 {
-    memset(dp,-1,sizeof(dp));
+    // memset(dp,-1,sizeof(dp));
     int n;
     n=a.size();
     // while(n--)
