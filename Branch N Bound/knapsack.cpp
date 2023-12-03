@@ -15,7 +15,7 @@ int main(){
     int n,W;
     cin>>n>>W;
     vector<item> v;
-    for(int i=0;i<n;i++){
+    for(int i=0;i<n;i++){ 
         int w;cin>>w;
         int p;cin>>p;
         v.push_back({w,p});
@@ -49,9 +49,9 @@ int main(){
         if(take.profit>max_profit and take.wt<=W) //make it max only if it's valid
             max_profit=take.profit;
 
-        if(take.ub>max_profit)     //if greater element found push it for further iteration on that node
+        if(take.ub>max_profit)     //if taking the node gives us bigger elem, then take it
             q.push(take);
-        
+
  ////NOT-TAKE
         node not_take = {
             k.wt,
@@ -61,7 +61,7 @@ int main(){
 
         not_take.ub = not_take.profit+(W-not_take.wt)*(double)v[not_take.level].profit/v[not_take.level].wt;
 
-        if(not_take.ub > max_profit)
+        if(not_take.ub > max_profit)    //if not taking the node gives us bigger elem, then take it
             q.push(not_take);
     }
 
