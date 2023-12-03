@@ -26,12 +26,14 @@ bool mark[N][N];
 int n;
 bool isValid(int row, int col)
 {
-   for (int i = row, j=col; i > 0 && j>0; --i,--j)
+
+   for (int i = row, j=col; i > 0; i--)
       if(mark[i][j]) return false;
-   for (int i = row, j=col; i > 0; --i)
+   for (int i = row, j=col; i > 0 && j>0; i--,j--)
       if(mark[i][j]) return false;
-   for (int i = row, j=col; i > 0 && j<=n; --i, ++j)
+   for (int i = row, j=col; i > 0 && j<=n; i--, j++)
       if(mark[i][j]) return false;
+
    return true;
 }
 void printway()
@@ -64,7 +66,7 @@ void findway(int row)
       if(isValid(row,i))
       {
          mark[row][i]=true;
-         findway(++row);
+         findway(row+1);
          mark[row][i]=false;
       }
 

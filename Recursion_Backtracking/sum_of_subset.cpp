@@ -22,18 +22,47 @@ typedef long double ld;
 #define yes cout << "YES\n"
 #define no cout << "NO\n"
 
-void solve()
+vector<int> v;
+vector<vector<int>> ans;
+int n;
+void sumSub(int i, int targetSum, 
+   vector<int> tmp={})
 {
+   if(i==n && targetSum==0)
+   {
+      ans.push_back(tmp);
+      // return;
+   }
+   if(i==n) return;
+
+   if(v[i]<=targetSum)
+   {
+      tmp.push_back(v[i]);
+      sumSub(i+1, targetSum-v[i], tmp);
+      tmp.pop_back();
+   }
+   sumSub(i+1, targetSum, tmp);
 
 }
 int main()
 {
     fastio
-    ll t;
-    cin >> t;
-    for(int it=1;it<=t;it++) {
-     //cout << "Case " << it << ": ";
-        solve();
+    // ll t;
+    cin>>n;
+    v.resize(n,0);
+    for (int i = 0; i < n; ++i)
+       cin>>v[i];
+    int t; cin>>t;
+    sumSub(0,t);
+    cout<<ans.size()<<ln;
+    for (auto i:ans)
+    {
+      cout<<"{";
+      for(auto j:i)
+         cout<<j<<",";
+       /* code */
+      cout<<"}\n";
     }
+
     return 0;
 }

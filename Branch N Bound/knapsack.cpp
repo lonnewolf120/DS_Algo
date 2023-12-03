@@ -1,17 +1,44 @@
-#include<bits/stdc++.h>
-using namespace std;
 
+#include <bits/stdc++.h>
+using namespace std;
+   
+typedef long long ll;
+typedef long double ld;
+#define forn(i,e) for(ll i = 0; i < e; i++)
+#define forsn(i,s,e) for(ll i = s; i <= e; i++)
+#define rforn(i,s) for(ll i = s; i >= 0; i--)
+#define rforsn(i,s,e) for(ll i = s; i >= e; i--)
+#define ln "\n"
+#define pb push_back
+#define fi first
+#define se second
+#define INF 2e18
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define all(x) (x).begin(), (x).end()
+#define sz(x) ((ll)(x).size())
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
+
+#define int long long
 struct item{
-    int wt,profit;
+    int profit, wt;
 };
-struct node{
-    int wt,profit,level,ub;
+
+struct node
+{
+// public:
+    int wt, profit, level, ub;
 };
-bool compareRatio(item a,item b){
+
+bool cmp(item a, item b)
+{
     return (double)a.profit/a.wt>(double)b.profit/b.wt;
 }
 
-int main(){
+int32_t main()
+{
+    fastio
+    
     int n,W;
     cin>>n>>W;
     vector<item> v;
@@ -20,61 +47,47 @@ int main(){
         int p;cin>>p;
         v.push_back({w,p});
     }
-    sort(v.begin(),v.end(),compareRatio);
-
+    sort(v.begin(),v.end(),cmp);
     queue<node> q;
-    node root={0,0,0,0};
-    int max_profit=0;
-    //ub = vi + (W-wi)*(Vi+1/wi+1)
+
+    int maxProfit = 0;
+    node root = {0,0,0,0};
     root.ub=root.profit+(W-root.wt)*(double)v[root.level].profit/v[root.level].wt;
-
+    cout<<"ROOT UB: "<<root.ub<<ln;
     q.push(root);
+    while(!q.empty())
+    {
+        node top = q.front(); q.pop();
 
-    while(!q.empty()){
+        if(top.level == n) break; //exit condition
 
-        node k=q.front();q.pop();
-
-        if(k.level==n) continue;  //final level reached so traverse others
-        
- ////TAKE       
+////TAKE
         node take = {
-            k.wt+v[k.level].wt,     //weight = prev-weight + weight-next-elem
-            k.profit+v[k.level].profit,     //profit = prev-profit + profit-next-elem
-            k.level+1,  //level increase by 1
-            k.ub};  //ub
-
-        // ub = vi + (W-wi)*(Vi+1/wi+1), [here take's level is increased by one, so it is referring to the next elem]
+            top.wt + v[top.level].wt,
+            top.profit + v[top.level].profit,
+            top.level+1,
+            top.ub
+        };
         take.ub = take.profit + (W-take.wt)*(double)v[take.level].profit/v[take.level].wt;
+        if(take.profit > maxProfit && take.wt<=W)
+            maxProfit = take.profit;
+        if(take.ub > maxProfit) q.push(take);
 
-        if(take.profit>max_profit and take.wt<=W) //make it max only if it's valid
-            max_profit=take.profit;
+////NOT TAKE
+        node not_take =
+        {
+            top.wt,
+            top.profit,
+            top.level+1,
+            top.ub
+        };
+        not_take.ub = not_take.profit + (W-not_take.wt)*(double)v[not_take.level].profit/v[not_take.level].wt;
+        
+        if(not_take.ub > maxProfit) q.push(not_take);
 
-        if(take.ub>max_profit)     //if taking the node gives us bigger elem, then take it
-            q.push(take);
-
- ////NOT-TAKE
-        node not_take = {
-            k.wt,
-            k.profit,
-            k.level+1,
-            k.ub};
-
-        not_take.ub = not_take.profit+(W-not_take.wt)*(double)v[not_take.level].profit/v[not_take.level].wt;
-
-        if(not_take.ub > max_profit)    //if not taking the node gives us bigger elem, then take it
-            q.push(not_take);
     }
+    cout<<maxProfit<<ln;
 
-    cout<<max_profit<<endl;
 
     return 0;
 }
-
-/*
-5 10
-3 50
-2 40
-5 60
-3 30
-10 100
-*/
