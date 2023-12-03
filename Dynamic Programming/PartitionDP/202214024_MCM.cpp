@@ -10,6 +10,8 @@ typedef long double ld;
 const int N=10e3;
 int dp[N][N];
 vector<int> a ={10,20,30,40,50};
+
+vector<vector<int>> bracket(N,vector<int>(N,0));
 int mcm(int i, int j)
 {
 	if(i==j) return 0;
@@ -19,11 +21,12 @@ int mcm(int i, int j)
 	{
 		int steps = a[i-1]*a[k]*a[j]+mcm(i,k)+mcm(k+1,j);
 		mn=min(mn,steps);
+		if(steps==mn)
+			bracket[i][j]=k;
 	}
 	return dp[i][j]=mn;
 }
 
-vector<vector<int>> bracket(N,vector<int>(N,0));
 
 int mcm_tabular(int n)
 {

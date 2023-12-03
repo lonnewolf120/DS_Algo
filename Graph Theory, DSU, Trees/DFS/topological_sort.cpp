@@ -42,13 +42,7 @@ void dfs(int src, int t = 1)
 
 void bfs(int V)
 {
-    memset(indegree, 0, sizeof(indegree));
     queue<int> q;
-    for (int i = 0; i < V; i++) {
-        for (auto it : graph[i]) {
-            indegree[it]++;
-        }
-    }
     for (int i = 0; i < V; i++) {
         if (indegree[i] == 0) {
             q.push(i);
@@ -65,7 +59,31 @@ void bfs(int V)
         }
     }
 }
-
+int cnt=0;
+vector<vector<int>> ans;
+void all_possible_way(int V, vector<int> cur={})
+{
+    if(cur.size()==V)
+    {
+        ans.push_back(cur);
+        cnt++;
+    }
+    for (int i = 0; i < V; ++i) //to generate all possible solutions
+    {
+        if(indegree[i]==0)
+        {
+            indegree[i]--;  //to prevent multiple times getting into i
+            cur.push_back(i);
+            for(auto j:graph[i]) indegree[j]--;
+            all_possible_way(V,cur); //to generate all solutions with cur 
+        //backtracking
+            indegree[i]=0;
+            cur.pop_back();
+            for(auto j:graph[i]) indegree[j]++;
+            // all_possible_way(V,cur); <-- NO NEED as we do recursion un
+        }
+    }
+}
 int main()
 {
     fastio
@@ -77,10 +95,26 @@ int main()
         cin >> u >> v;
         graph[u].push_back(v);
     }
-    bfs(n);
-    cout<<tops.size()<<ln;
-    for(auto i:tops)
-        cout<<(char)(i+65)<<" ";
-    cout<<ln;
+    memset(indegree, 0, sizeof(indegree));
+    for (int i = 0; i < n; i++) {
+        for (auto it : graph[i]) {
+            indegree[it]++;
+        }
+    }
+    all_possible_way(n-1);
+    for(auto i:ans)
+    {
+        for(auto j:i)
+            cout<<j<<" ";
+        cout<<ln;
+    }
+    if(cnt==0)
+    {
+        cout<<"Cycle exists\n";
+    }
+    // cout<<tops.size()<<ln;
+    // for(auto i:tops)
+    //     cout<<(char)(i+65)<<" ";
+    // cout<<ln;
     return 0;
 }

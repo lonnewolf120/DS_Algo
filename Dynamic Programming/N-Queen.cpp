@@ -24,6 +24,9 @@ typedef long double ld;
 const int N = 10e3;
 bool mark[N][N];
 int n;
+
+//Issues faced: if row wise traversal is not done at first,
+//then we were getting infinite loop
 bool isValid(int row, int col)
 {
 

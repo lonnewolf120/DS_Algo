@@ -25,6 +25,9 @@ typedef long double ld;
 vector<int> v;
 vector<vector<int>> ans;
 int n;
+
+//Issues fixed: if a tmp vector is not set as parameter, 
+//it is not being updated (push,pop happens to empty vector every time if not taken as parameter)
 void sumSub(int i, int targetSum, 
    vector<int> tmp={})
 {
