@@ -20,6 +20,7 @@ typedef long double ld;
 const int N=10e5;
 vector<ll> wi(N),vi(N);
 
+//top-down
 ll count(ll ind, ll w,vector<vector<ll>> &dp)
 {
 	//base case 
@@ -31,9 +32,8 @@ ll count(ll ind, ll w,vector<vector<ll>> &dp)
 	ll not_take=0+count(ind-1,w,dp);
 	ll take=INT_MIN;
 	if(wi[ind]<=w)
-	{
 		take=vi[ind]+count(ind-1,w-wi[ind],dp);
-	}
+	
 	return dp[ind][w]=max(take,not_take);
 }
 

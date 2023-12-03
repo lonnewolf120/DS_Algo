@@ -23,28 +23,37 @@ int mcm(int i, int j)
 	return dp[i][j]=mn;
 }
 
+vector<vector<int>> bracket(N,vector<int>(N,0));
+
 int mcm_tabular(int n)
 {
 	for (int i = 0; i < n; ++i)
 		dp[i][i]=0;
 	// vector<vector<ll>> bracket(n,vector<ll>(n));
-	for(int i=n-1; i>=1; --i)
+
+	for(int len = 2; len>=n;len++)
 	{
-		for(int j=i+1;j<=n-1;++j) //always the left partition of i
+		for (int i = 1; i <= n-len; ++i)
 		{
-			dp[i][j]=1<<31;
-			for (int k = i; i < j; ++i)
+			int j = i+len-1;
+			dp[i][j] = INT_MAX;
+			for (int k = i; k < j; ++k)
 			{
-				int steps = a[i-1]*a[k]*a[j]+dp[i][k]+dp[k+1][j];
-				dp[i][j]=min(dp[i][j],steps);
-				// bracket[i][j]=k;
-				// cout<< k <<" ";
+				int steps = a[i-1]*a[k]*a[j] + dp[i][k] + dp[k+1][j];
+				dp[i][j] = min(dp[i][j],steps);
+				bracket[i][j]=k; 
 			}
-			// cout<<ln;
 		}
 	}
 	return dp[1][n-1];
 }
+
+void printMCM(int i, int j)
+{
+	if(i==j) { cout<< (char)(i+65); return;	}
+	cout<<"("; printMCM(i,bracket[i][j]); cout<<"x"; printMCM(bracket[i][j]+1, j); cout<<")";
+}
+
 int main()
 {
     // memset(dp,-1,sizeof(dp));

@@ -14,16 +14,7 @@ const double eps = 1e-12; // Added 'const' before the eps variable
 #define rforn(i,s) for(int i = s; i >= 0; i--) // Changed 'll' to 'int'
 #define rforsn(i,s,e) for(int i = s; i >= e; i--) // Changed 'll' to 'int'
 #define ln '\n' // Removed the double quotes around '\n'
-#define dbg(x) cout<<#x<<" = "<<x<<ln
-#define pb push_back
-#define fi first
-#define se second
-#define INF 2e18
 #define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-#define all(x) (x).begin(), (x).end()
-#define sz(x) ((int)(x).size()) // Changed 'll' to 'int'
-#define yes cout << "YES" << ln // Removed '\n' from the end
-#define no cout << "NO" << ln // Removed '\n' from the end
 
 const int N = 10000; // Corrected the format and value of N
 map<int, vector<int>> graph;
@@ -31,7 +22,7 @@ int discovery[N];
 int indegree[N];
 int finished[N];
 map<int, int> visited;
-stack<int> topo_s;
+queue<int> topo_s;
 vector<int> tops;
 
 void dfs(int src, int t = 1)
@@ -46,23 +37,13 @@ void dfs(int src, int t = 1)
         }
     }
     finished[src] = t;
-    topo_s.push(src);
+    topo_s.push(src); //use queue instead for dfs
 }
 
 void bfs(int V)
 {
     memset(indegree, 0, sizeof(indegree));
     queue<int> q;
-    // for(auto i:graph)
-    // {
-    //     for(auto j:i.second)
-    //     {
-    //         indegree[j]++;  //the adjacency nodes indegree increases as they're incoming from parents
-    //     }
-    // }
-    // for(auto i:graph)
-    //     if(indegree[i.first] == 0) q.push(i.first); // insert the nodes with no indegrees first, cause they're topologically sorted
-    
     for (int i = 0; i < V; i++) {
         for (auto it : graph[i]) {
             indegree[it]++;
@@ -94,16 +75,10 @@ int main()
     {
         int u, v;
         cin >> u >> v;
-        graph[u].pb(v);
+        graph[u].push_back(v);
     }
     bfs(n);
-    cout<<topo_s.size()<<ln;
-    // topo(0)
-    // while (!topo_s.empty())
-    // {
-    //     cout << (char)(topo_s.top()+65) << " ";
-    //     topo_s.pop(); // Changed st.pop() to topo_s.pop()
-    // }
+    cout<<tops.size()<<ln;
     for(auto i:tops)
         cout<<(char)(i+65)<<" ";
     cout<<ln;

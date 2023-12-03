@@ -5,12 +5,12 @@ class Trie
 {
     public:
     int EoW;
-    Trie* children[26];
+    Trie* children[10];
 
     Trie()
     {
         EoW=0;
-        for(int i=0;i<26;i++){
+        for(int i=0;i<10;i++){
             this->children[i]=NULL;
         }
     }
@@ -18,7 +18,7 @@ class Trie
     {
         Trie* tmp = root;
         for(int i=0;i<s.size();i++){
-           int ind = s[i]-'A';
+           int ind = s[i]-'0';
            if(tmp->children[ind]==NULL)
                 tmp->children[ind]=new Trie();
            tmp=tmp->children[ind];
@@ -31,7 +31,7 @@ class Trie
         Trie* pCrawl = root;
 
         for (int i = 0; i < key.length(); i++) {
-            int index = key[i] - 'A';
+            int index = key[i] - '0';
             if (!pCrawl->children[index])
                 return false;
 
@@ -45,7 +45,7 @@ class Trie
         Trie* pCrawl = root;
 
         for (int i = 0; i < key.length(); i++) {
-            int index = key[i] - 'A';
+            int index = key[i] - '0';
             if (!pCrawl->children[index])
                 return NULL;
 
@@ -57,10 +57,10 @@ class Trie
     void printTrie(Trie* cur,string s="")
     {
         if(cur->EoW) cout<<s<<endl;
-        for(int i=0;i<26;i++){
+        for(int i=0;i<10;i++){
            if(cur->children[i]!=NULL)
            {
-               char c=(char)(i+'A');
+               char c=(char)(i+'0');
                //cout<<c<<" ";
                printTrie(cur->children[i], s+c);
            }
@@ -73,7 +73,7 @@ class Trie
         for(int i=25;i>=0;i--){
            if(cur->children[i]!=NULL)
            {
-               char c=(char)(i+'A');
+               char c=(char)(i+'0');
                //cout<<c<<" ";
                printTrie(cur->children[i], s+c);
            }
@@ -82,10 +82,10 @@ class Trie
     void printMore(Trie* cur, string s="")
     {
         if(cur->EoW >1) cout<<s<<" is there more than once\n";
-        for(int i=0;i<26;i++){
+        for(int i=0;i<10;i++){
            if(cur->children[i]!=NULL)
            {
-               char c=(char)(i+'A');
+               char c=(char)(i+'0');
                //cout<<c<<" ";
                printMore(cur->children[i], s+c);
            }
@@ -94,7 +94,7 @@ class Trie
 
     bool isEmpty(Trie* root)
     {
-        for (int i = 0; i < 26; i++)
+        for (int i = 0; i < 10; i++)
             if (root->children[i])
                 return false;
         return true;
@@ -108,7 +108,7 @@ class Trie
             if(root->EoW) root->EoW=0;
             return root;
         }
-        int ind=s[d]-'A';
+        int ind=s[d]-'0';
         root->children[ind]=dlt(root->children[ind],s,++d);
         //if(isEmpty(root) && !root->EoW) {delete (root);root=NULL;}
         return root;
@@ -117,21 +117,21 @@ class Trie
 
 int main()
 {
-    Trie newT, *root=new Trie();
-    newT.insert(root,"MIST");
-    newT.insert(root,"MIT");
-    newT.insert(root,"BUP");
-    newT.insert(root,"MIST");
-    newT.insert(root,"BUP");
-    newT.printTrie(root); cout<<endl;
-    //newT.dlt(root,"BUP");
-    newT.printTrieBack(root); cout<<endl;
-    //newT.search(root, "MIST")?cout<<"Found\n":cout<<"Not Found\n";
-    //newT.search(root, "BUP")?cout<<"Found\n":cout<<"Not Found\n";
-    string s;
-    cout<<"Enter Input: ";cin>>s;
-    Trie* NTS=newT.searchF(root,s);
-    newT.printTrie(NTS,s);
-    newT.printMore(root);
+    Trie *root=new Trie();
+    Trie trie;
+    // TrieNode* root=new TrieNode;
+    int n = 61;
+    for (int i = 0; i < n; ++i) {
+        string s;
+        cin >> s;
+        trie.insert(root,s);
+    }
+    int t = 39;
+    for (int i = 0; i < t; ++i) {
+        string s;
+        cin >> s;
+        trie.dlt(root, s);
+    }
+    trie.printTrie(root);
     return 0;
 }
