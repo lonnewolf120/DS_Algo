@@ -39,8 +39,8 @@ int32_t main(){
         
  ////TAKE       
         node take = {
-            k.wt+v[k.level].wt,     //weight = prev-weight + weight-next-elem
-            k.profit+v[k.level].profit,     //profit = prev-profit + profit-next-elem
+            k.wt+v[k.level].wt,     //weight = cur-weight + weight-next-elem
+            k.profit+v[k.level].profit,     //profit = cur-profit + profit-next-elem
             k.level+1,  //level increase by 1
             k.ub};  //ub
 
@@ -50,7 +50,7 @@ int32_t main(){
         if(take.profit>max_profit and take.wt<=W) //make it max only if it's valid
             max_profit=take.profit;
 
-        if(take.ub > max_profit)     //if taking the node gives us bigger elem, then take it
+        if(take.ub > max_profit)     //if taking the node gives us upperbound greater than current max profit, then take it
             q.push(take);
 
  ////NOT-TAKE
@@ -62,7 +62,7 @@ int32_t main(){
 
         not_take.ub = not_take.profit+(W-not_take.wt)*(double)v[not_take.level].profit/v[not_take.level].wt;
 
-        if(not_take.ub > max_profit)    //if not taking the node gives us bigger elem, then take it
+        if(not_take.ub > max_profit)    //if not taking the node gives us bigger upperbound, then take it
             q.push(not_take);
     }
 
