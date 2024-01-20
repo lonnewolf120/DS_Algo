@@ -55,6 +55,8 @@ int main() {
     Trie trie;
     trie.insert("apple");
     trie.insert("app");
+    trie.insert("15");
+    trie.insert("APPLe");
     
     std::cout << "Search 'apple': " << (trie.search("apple") ? "Found" : "Not found") << std::endl;
     std::cout << "Search 'app': " << (trie.search("app") ? "Found" : "Not found") << std::endl;
