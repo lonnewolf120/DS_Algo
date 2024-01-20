@@ -54,7 +54,11 @@ int mcm_tabular(int n)
 void printMCM(int i, int j)
 {
 	if(i==j) { cout<< (char)(i+65); return;	}
-	cout<<"("; printMCM(i,bracket[i][j]); cout<<"x"; printMCM(bracket[i][j]+1, j); cout<<")";
+	cout<<"("; 
+	printMCM(i,bracket[i][j]); 
+	cout<<"x"; 
+	printMCM(bracket[i][j]+1, j); 
+	cout<<")";
 }
 
 int main()
@@ -66,7 +70,7 @@ int main()
     // {
     // 	ll x; cin>>x; a.push_back(x);
     // }
-    // cout<<mcm(1,n-1)<<ln;
-    cout<<mcm_tabular(n)<<ln;
+    cout<<mcm(1,n-1)<<ln;
+    // cout<<mcm_tabular(n)<<ln;
     return 0;
 }

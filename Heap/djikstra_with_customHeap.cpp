@@ -52,14 +52,14 @@ class Heap
     
 };
 
+
+
 int main()
 {
-    fastio
-    ll t;
+    int t;
     cin >> t;
     for(int it=1;it<=t;it++) {
      //cout << "Case " << it << ": ";
-        solve();
     }
     return 0;
 }
