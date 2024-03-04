@@ -76,7 +76,7 @@ public:
             return false;
         node n(key, val);
         a[++size] = n;
-        bottomTopAdjust(size);  //heapify
+        bottomTopAdjust(size); 
         return true;
     }
     bool increaseKey(int val, int key)
