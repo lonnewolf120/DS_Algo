@@ -1,0 +1,1 @@
+{"name":"Local: DIVNDIV","url":"c:\\D Drive\\Projects\\_DSA\\Binary Search\\Codechef\\DIVNDIV.cpp","tests":[{"id":1694271185008,"input":"3\n5 2 3\n4 2 3\n10 7 1","output":"8\n8\n-1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\D Drive\\Projects\\_DSA\\Binary Search\\Codechef\\DIVNDIV.cpp","group":"local","local":true}

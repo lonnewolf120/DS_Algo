@@ -2,91 +2,119 @@
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma")
 #pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h>
-   
+
 using namespace std;
-   
+
 typedef long long ll;
 typedef long double ld;
-ll MOD = 998244353;
-double eps = 1e-12;
-#define forn(i,e) for(ll i = 0; i < e; i++)
-#define forsn(i,s,e) for(ll i = s; i <= e; i++)
-#define rforn(i,s) for(ll i = s; i >= 0; i--)
-#define rforsn(i,s,e) for(ll i = s; i >= e; i--)
-#define ln "\n"
-#define dbg(x) cout<<#x<<" = "<<x<<ln
-#define pb push_back
-#define fi first
-#define se second
-#define INF 2e18
+const ll MOD = 998244353; // Added 'const' before the MOD variable
+const double eps = 1e-12; // Added 'const' before the eps variable
+#define forn(i,e) for(int i = 0; i < e; i++) // Changed 'll' to 'int'
+#define forsn(i,s,e) for(int i = s; i <= e; i++) // Changed 'll' to 'int'
+#define rforn(i,s) for(int i = s; i >= 0; i--) // Changed 'll' to 'int'
+#define rforsn(i,s,e) for(int i = s; i >= e; i--) // Changed 'll' to 'int'
+#define ln '\n' // Removed the double quotes around '\n'
 #define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-#define all(x) (x).begin(), (x).end()
-#define sz(x) ((ll)(x).size())
-#define yes cout << "YES\n"
-#define no cout << "NO\n"
 
-const int N=10e3;
-map<int,vector<int>> graph;
+const int N = 10000; // Corrected the format and value of N
+map<int, vector<int>> graph;
 int discovery[N];
+int indegree[N];
 int finished[N];
-map<int,int> visited;
-stack<int> topo_s;
+map<int, int> visited;
+queue<int> topo_s;
+vector<int> tops;
 
-void dfs(int src,int t=1)
+void dfs(int src, int t = 1)
 {
-	visited[src]=1;
-	for(auto i:graph[src])
-	{
-		if(!visited[i])
-		{
-			discovery[i]=t;
-			dfs(i,++t);
-		}
-	}
-	finished[src]=t;
-	topo_s.push(src);
+    visited[src] = 1;
+    for (auto i : graph[src])
+    {
+        if (!visited[i])
+        {
+            discovery[i] = t;
+            dfs(i, t + 1);
+        }
+    }
+    finished[src] = t;
+    topo_s.push(src); //use queue instead for dfs
 }
-stack<int> st;
-void topo(int src)
-{
-	st.push(src);
-	int t=1;
-	visited[src]=1;
-	discovery[src]=t++;
 
-	while(!st.empty())
-	{
-		int top = st.top();
-		st.pop();
-		for(auto i:graph[top])
-		{
-			if(!visited[i])
-			{
-				st.push(i);
-				discovery[i]=t++;	
-			}
-			else finished[i]=(t+1);
-		}
-	}
+void bfs(int V)
+{
+    queue<int> q;
+    for (int i = 0; i < V; i++) {
+        if (indegree[i] == 0) {
+            q.push(i);
+        }
+    }
+    while(!q.empty())
+    {
+        int node = q.front(); q.pop();
+        tops.push_back(node);
+        for(auto i:graph[node])
+        {
+            indegree[i]--;
+            if(indegree[i]==0) q.push(i);
+        }
+    }
+}
+int cnt=0;
+vector<vector<int>> ans;
+void all_possible_way(int V, vector<int> cur={})
+{
+    if(cur.size()==V)
+    {
+        ans.push_back(cur);
+        cnt++;
+    }
+    for (int i = 0; i < V; ++i) //to generate all possible solutions
+    {
+        if(indegree[i]==0)
+        {
+            indegree[i]--;  //to prevent multiple times getting into i
+            cur.push_back(i);
+            for(auto j:graph[i]) indegree[j]--;
+            all_possible_way(V,cur); //to generate all solutions with cur 
+        //backtracking
+            indegree[i]=0;
+            cur.pop_back();
+            for(auto j:graph[i]) indegree[j]++;
+            // all_possible_way(V,cur); <-- NO NEED as we do recursion un
+        }
+    }
 }
 int main()
 {
     fastio
-    int n,e; cin >> n >> e;
-    forn(i,e)
+    int n, e;
+    cin >> n >> e;
+    for (int i = 0; i < e; ++i)
     {
-    	ll u,v; cin >> u >> v;
-    	graph[u].pb(v);
+        int u, v;
+        cin >> u >> v;
+        graph[u].push_back(v);
     }
-    for (int i = 0; i < n; ++i)
+    memset(indegree, 0, sizeof(indegree));
+    for (int i = 0; i < n; i++) {
+        for (auto it : graph[i]) {
+            indegree[it]++;
+        }
+    }
+    all_possible_way(n-1);
+    for(auto i:ans)
     {
-    	if(!visited[i])dfs(i);
+        for(auto j:i)
+            cout<<j<<" ";
+        cout<<ln;
     }
-    while(!topo_s.empty())
+    if(cnt==0)
     {
-    	cout<<topo_s.top()<<" ";
-    	st.pop();
+        cout<<"Cycle exists\n";
     }
-
+    // cout<<tops.size()<<ln;
+    // for(auto i:tops)
+    //     cout<<(char)(i+65)<<" ";
+    // cout<<ln;
     return 0;
 }

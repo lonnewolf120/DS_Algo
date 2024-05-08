@@ -35,7 +35,7 @@ void djikstra(ll sx,map<ll, vector<pair<ll,ll>>> &g,vector<bool> &visited,vector
 		ll p = q.top().second;
 		q.pop();
 		//visited[p]=1;
-		for(auto i:g[p.second])
+		for(auto i:g[p])
 		{
 			ll node=i.first, weight=i.second;
 			if(dis[node]>dis[p]+weight)
